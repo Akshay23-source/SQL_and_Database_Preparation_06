@@ -1,0 +1,145 @@
+Today we move into slightly advanced but very important concepts 🔥
+These are frequently asked in interviews + coding tests.
+
+🔥 Today’s Concepts:
+
+1️⃣ HAVING (Filtering grouped data)
+2️⃣ DISTINCT (Removing duplicates)
+
+1️⃣ HAVING (Filtering After Grouping)
+Simple Idea
+
+HAVING is used to filter grouped data
+
+👉 It answers:
+“After grouping, which groups do I want?”
+
+Mental Model 🧠
+
+Think:
+
+WHERE → filter rows BEFORE grouping
+HAVING → filter groups AFTER grouping
+Example Table
+name	branch	marks
+Akshay	CSE	85
+Neha	CSE	90
+Rahul	ECE	72
+Rohit	ECE	80
+Problem
+
+👉 “Show only branches where average marks > 80”
+
+SQL Query
+SELECT branch, AVG(marks)
+FROM students
+GROUP BY branch
+HAVING AVG(marks) > 80;
+Output
+branch	avg_marks
+CSE	87.5
+Step-by-Step Understanding
+1. GROUP BY branch
+2. Calculate AVG for each group
+3. HAVING filters those groups
+Python Connection 🧠
+from collections import defaultdict
+
+groups = defaultdict(list)
+
+for s in students:
+    groups[s["branch"]].append(s["marks"])
+
+for branch in groups:
+    avg = sum(groups[branch]) / len(groups[branch])
+    if avg > 80:
+        print(branch, avg)
+
+👉 SQL replaces group + filter logic
+
+Why HAVING is Needed
+
+👉 WHERE cannot be used with aggregate functions
+
+❌ Wrong:
+
+SELECT branch, AVG(marks)
+FROM students
+WHERE AVG(marks) > 80
+GROUP BY branch;
+
+✔ Correct:
+
+HAVING AVG(marks) > 80
+Memory Trick 🧠
+HAVING = Filter groups
+2️⃣ DISTINCT (Removing Duplicates)
+Simple Idea
+
+DISTINCT removes duplicate values
+
+👉 It answers:
+“Show only unique values”
+
+Example Table
+name	branch
+Akshay	CSE
+Rahul	ECE
+Neha	CSE
+Rohit	ECE
+Without DISTINCT
+SELECT branch FROM students;
+
+👉 Output:
+
+CSE
+ECE
+CSE
+ECE
+With DISTINCT
+SELECT DISTINCT branch FROM students;
+
+👉 Output:
+
+CSE
+ECE
+Python Connection 🧠
+branches = set(s["branch"] for s in students)
+print(branches)
+
+👉 SQL DISTINCT ≈ Python set()
+
+Why DISTINCT is Useful
+
+✔ Remove duplicates
+✔ Get unique values
+✔ Useful in analytics
+
+Combine DISTINCT with COUNT
+SELECT COUNT(DISTINCT branch) FROM students;
+
+👉 Count unique branches
+
+Memory Trick 🧠
+DISTINCT = Remove duplicates
+🔥 Placement Insight
+
+Very common questions:
+
+Q1: Difference between WHERE and HAVING?
+Clause	Use
+WHERE	Filter rows
+HAVING	Filter grouped data
+Q2: When to use DISTINCT?
+
+👉 When you need unique values only
+
+Quick Revision (1 Minute)
+HAVING → filter groups
+DISTINCT → remove duplicates
+What You Learned Today
+
+✔ How to filter grouped data using HAVING
+✔ Why HAVING is needed
+✔ How to remove duplicates using DISTINCT
+✔ How SQL simplifies Python logic
