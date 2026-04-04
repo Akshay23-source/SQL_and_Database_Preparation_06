@@ -1,0 +1,153 @@
+JOIN Practice + Self JOIN (24 March 2026)
+
+Today we strengthen JOINS with real interview-type questions 🔥
+This is where most students struggle — we’ll make it crystal clear.
+
+🔥 Today’s Concepts:
+
+1️⃣ JOIN Practice (Real Interview Questions)
+2️⃣ Self JOIN (Advanced but easy once understood)
+
+1️⃣ JOIN Practice (Real Understanding)
+🧠 Mental Model First
+JOIN = Match rows from two tables using a condition
+
+👉 Always ask yourself:
+
+What are the tables?
+What is the common column?
+Example Tables
+Students
+id	name
+1	Akshay
+2	Rahul
+3	Neha
+Marks
+student_id	marks
+1	85
+2	72
+3	90
+🎯 Interview Question 1
+
+👉 “Get student names with their marks”
+
+SQL Solution
+SELECT students.name, marks.marks
+FROM students
+INNER JOIN marks
+ON students.id = marks.student_id;
+🧠 Think Like This
+students.id = marks.student_id
+→ match rows
+→ combine columns
+Python Equivalent
+for s in students:
+    for m in marks:
+        if s["id"] == m["student_id"]:
+            print(s["name"], m["marks"])
+
+👉 SQL replaces nested loops
+
+🎯 Interview Question 2
+
+👉 “Get students who scored more than 80”
+
+SQL
+SELECT students.name, marks.marks
+FROM students
+JOIN marks
+ON students.id = marks.student_id
+WHERE marks.marks > 80;
+🎯 Interview Question 3
+
+👉 “Get all students, even if they have no marks”
+
+SQL (LEFT JOIN)
+SELECT students.name, marks.marks
+FROM students
+LEFT JOIN marks
+ON students.id = marks.student_id;
+Key Learning
+JOIN Type	When to Use
+INNER JOIN	Only matching data
+LEFT JOIN	Keep all left data
+2️⃣ Self JOIN (Very Important Concept)
+Simple Idea
+
+Self JOIN = A table joining with itself
+
+👉 Used when data is related within the same table
+
+Real-World Example 🧠
+Employees Table
+id	name	manager_id
+1	Akshay	NULL
+2	Rahul	1
+3	Neha	1
+
+👉 Question:
+
+“Show employee name with their manager name”
+
+Problem
+
+Manager is also an employee
+
+👉 Same table!
+
+SQL Solution (Self JOIN)
+SELECT e.name AS employee, m.name AS manager
+FROM employees e
+LEFT JOIN employees m
+ON e.manager_id = m.id;
+Output
+employee	manager
+Akshay	NULL
+Rahul	Akshay
+Neha	Akshay
+Step-by-Step Understanding
+e → employee table
+m → same table but acting as manager
+
+e.manager_id = m.id
+→ connect employee to manager
+Python Connection 🧠
+for e in employees:
+    for m in employees:
+        if e["manager_id"] == m["id"]:
+            print(e["name"], m["name"])
+Why Self JOIN is Needed
+
+✔ Hierarchical data (manager, parent, category)
+✔ Relationships within same table
+✔ Very common in interviews
+
+Memory Trick 🧠
+Self JOIN = Table joins itself
+🔥 Placement Insight
+
+Very common questions:
+
+Q1: What is Self JOIN?
+
+👉 Joining a table with itself
+
+Q2: Why aliases (e, m) are used?
+
+👉 To differentiate same table
+
+Q3: JOIN vs Self JOIN?
+JOIN	Self JOIN
+Different tables	Same table
+Quick Revision (1 Minute)
+JOIN → combine tables
+INNER JOIN → only matching
+LEFT JOIN → all left data
+
+Self JOIN → table joins itself
+What You Learned Today
+
+✔ How to solve real JOIN questions
+✔ How JOIN works in interviews
+✔ What is Self JOIN
+✔ How to handle hierarchical data
